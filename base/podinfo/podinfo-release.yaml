@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: podinfo
+  namespace: dev-team
+spec:
+  targetNamespace: apps
+  kubeConfig:
+    secretRef:
+      name: gitops-reconciler-kubeconfig
+      key: kubeconfig
+  releaseName: podinfo
+  chart:
+    spec:
+      chart: podinfo
+      sourceRef:
+        kind: HelmRepository
+        name: podinfo
+  interval: 1m
