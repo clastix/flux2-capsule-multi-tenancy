@@ -3,10 +3,12 @@ kind: Kustomization
 metadata:
   name: namespaces
   #namespace: apps
-  namespace: default
+  #namespace: default
+  namespace: dev-team
 spec:
   #serviceAccountName: dev-team # WRONG: it cannot create new namespaces!
-  serviceAccountName: dev-team-gitops-reconciler
+  #serviceAccountName: dev-team-gitops-reconciler
+  serviceAccountName: gitops-reconciler
   interval: 1m
   sourceRef:
     kind: GitRepository
