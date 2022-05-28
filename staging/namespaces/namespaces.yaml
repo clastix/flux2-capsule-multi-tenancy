@@ -7,15 +7,3 @@ metadata:
     kustomize.toolkit.fluxcd.io/namespace: flux-system
     toolkit.fluxcd.io/tenant: dev-team
   name: forbidden-namespace
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: podinfo
-  namespace: forbidden-namespace
-spec:
-  chart:
-    spec:
-      version: ">=1.0.0-alpha"
-  values:
-    replicaCount: 1
