@@ -4,6 +4,7 @@ metadata:
   name: podinfo
   namespace: apps
 spec:
+  serviceAccountName: dev-team # WRONG: it cannot create new namespaces!
   dependsOn:
     - name: namespaces
   interval: 1m

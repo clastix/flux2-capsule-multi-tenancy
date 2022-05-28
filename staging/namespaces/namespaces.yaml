@@ -7,3 +7,15 @@ metadata:
     kustomize.toolkit.fluxcd.io/namespace: flux-system
     toolkit.fluxcd.io/tenant: dev-team
   name: forbidden-namespace
+
+---
+# Tenant Namespaces will be instantiated by the Tenant user
+# themselves. I.e. the GitOps way, by the Tenat Owner gitops-reconciler
+# Service Account.
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: dev-team
+  name: apps
