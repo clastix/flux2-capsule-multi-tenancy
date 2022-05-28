@@ -2,9 +2,11 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: podinfo
-  namespace: apps
+  #namespace: apps
+  namespace: default
 spec:
-  serviceAccountName: dev-team # WRONG: it cannot create new namespaces!
+  #serviceAccountName: dev-team # WRONG: it cannot create new namespaces!
+  serviceAccountName: dev-team-gitops-reconciler
   dependsOn:
     - name: namespaces
   interval: 1m
