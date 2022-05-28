@@ -4,6 +4,7 @@ metadata:
   name: namespaces
   namespace: apps
 spec:
+  serviceAccountName: dev-team # WRONG: it cannot create new namespaces!
   interval: 1m
   sourceRef:
     kind: GitRepository
