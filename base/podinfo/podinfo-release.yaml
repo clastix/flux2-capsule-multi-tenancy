@@ -4,7 +4,7 @@ metadata:
   name: podinfo
   namespace: apps
 spec:
-  serviceAccountName: dev-team
+  serviceAccountName: dev-team # TODO: impersonate Tenant Owner
   releaseName: podinfo
   chart:
     spec:
