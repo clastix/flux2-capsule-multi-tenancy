@@ -5,6 +5,10 @@ metadata:
   namespace: dev-team
 spec:
   serviceAccountName: gitops-reconciler
+  kubeConfig:
+    secretRef:
+      name: capsule-proxy
+      key: kubeconfig
   interval: 1m
   sourceRef:
     kind: GitRepository
