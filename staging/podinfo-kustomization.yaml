@@ -4,7 +4,10 @@ metadata:
   name: podinfo
   namespace: dev-team
 spec:
-  serviceAccountName: gitops-reconciler
+  kubeConfig:
+    secretRef:
+      name: gitops-reconciler-kubeconfig
+      key: kubeconfig
   dependsOn:
     - name: namespaces
   interval: 1m

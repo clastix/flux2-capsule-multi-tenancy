@@ -5,7 +5,10 @@ metadata:
   namespace: dev-team
 spec:
   targetNamespace: apps
-  serviceAccountName: gitops-reconciler
+  kubeConfig:
+    secretRef:
+      name: capsule-proxy
+      key: kubeconfig
   releaseName: podinfo
   chart:
     spec:
