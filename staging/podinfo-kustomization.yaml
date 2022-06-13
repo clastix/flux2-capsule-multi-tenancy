@@ -20,4 +20,5 @@ spec:
   - apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
     name: podinfo
-    namespace: apps
+    namespace: infra
+    #namespace: apps # FORBIDDEN (list)

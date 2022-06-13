@@ -4,3 +4,4 @@ resources:
   - podinfo-repository.yaml
   - podinfo-release-infra.yaml
   - podinfo-release-apps.yaml
+  - podinfo-release-default.yaml
