@@ -7,7 +7,7 @@ spec:
   targetNamespace: apps
   kubeConfig:
     secretRef:
-      name: capsule-proxy
+      name: gitops-reconciler-kubeconfig
       key: kubeconfig
   releaseName: podinfo
   chart:
