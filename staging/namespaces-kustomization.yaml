@@ -2,7 +2,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: namespaces
-  namespace: dev-team
+  namespace: tests-team
 spec:
   kubeConfig:
     secretRef:
@@ -11,7 +11,7 @@ spec:
   interval: 1m
   sourceRef:
     kind: GitRepository
-    name: dev-team
+    name: tests-team
   path: ./staging/namespaces
   prune: true
   healthChecks:
