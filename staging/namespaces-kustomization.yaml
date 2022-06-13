@@ -14,3 +14,10 @@ spec:
     name: dev-team
   path: ./staging/namespaces
   prune: true
+  healthChecks:
+  - apiVersion: v1
+    kind: Namespace
+    name: apps
+  - apiVersion: v1
+    kind: Namespace
+    name: tools
