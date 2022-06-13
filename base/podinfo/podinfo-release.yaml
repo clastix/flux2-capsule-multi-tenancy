@@ -16,4 +16,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: podinfo
+        namespace: apps # FORBIDDEN
   interval: 1m

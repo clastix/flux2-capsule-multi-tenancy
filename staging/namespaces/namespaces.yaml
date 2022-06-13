@@ -8,7 +8,7 @@ metadata:
   labels:
     toolkit.fluxcd.io/tenant: ops-team
     kubernetes.io/metadata.name: tools
-  name: tools
+  name: tools # FORBIDDEN
 
 ---
 apiVersion: v1
@@ -17,7 +17,7 @@ metadata:
   labels:
     toolkit.fluxcd.io/tenant: ops-team
     kubernetes.io/metadata.name: apps
-  name: apps
+  name: apps # FORBIDDEN
 
 ---
 apiVersion: v1
