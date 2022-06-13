@@ -2,7 +2,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: podinfo
-  namespace: tests-team
+  namespace: ops-team
 spec:
   kubeConfig:
     secretRef:
@@ -13,7 +13,7 @@ spec:
   interval: 1m
   sourceRef:
     kind: GitRepository
-    name: tests-team
+    name: ops-team
   path: ./staging/podinfo
   prune: true
   healthChecks:
