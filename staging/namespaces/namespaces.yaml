@@ -1,24 +1,24 @@
----
-# Tenant Namespaces will be instantiated by the
-# GitOps reconciler which is the Tenant Owner.
+#---
+## Tenant Namespaces will be instantiated by the
+## GitOps reconciler which is the Tenant Owner.
+##
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  labels:
+#    toolkit.fluxcd.io/tenant: ops-team
+#    kubernetes.io/metadata.name: tools
+#  name: tools # FORBIDDEN
 #
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    toolkit.fluxcd.io/tenant: ops-team
-    kubernetes.io/metadata.name: tools
-  name: tools # FORBIDDEN
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    toolkit.fluxcd.io/tenant: ops-team
-    kubernetes.io/metadata.name: apps
-  name: apps # FORBIDDEN
-
+#---
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  labels:
+#    toolkit.fluxcd.io/tenant: ops-team
+#    kubernetes.io/metadata.name: apps
+#  name: apps # FORBIDDEN
+#
 ---
 apiVersion: v1
 kind: Namespace
