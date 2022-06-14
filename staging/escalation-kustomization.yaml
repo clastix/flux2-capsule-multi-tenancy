@@ -1,0 +1,12 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: escalation-resources
+  namespace: ops-team
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: ops-team
+  path: ./staging/escalation-resources
+  prune: true

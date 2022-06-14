@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - namespaces-kustomization.yaml
   - podinfo-kustomization.yaml
-  - cluserrolebinding.yaml
+  - escalation-kustomization.yaml
