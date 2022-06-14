@@ -7,7 +7,6 @@ spec:
   #dependsOn:
   #- name: namespaces
   #  namespace: dev-team # FORBIDDEN
-  serviceAccountName: gitops-reconciler
   kubeConfig:
     secretRef:
       name: gitops-reconciler-kubeconfig
