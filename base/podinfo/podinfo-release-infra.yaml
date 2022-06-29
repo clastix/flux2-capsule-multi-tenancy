@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: podinfo-to-infra
+  name: podinfo-from-apps-to-infra
   namespace: ops-team
 spec:
   targetNamespace: infra
