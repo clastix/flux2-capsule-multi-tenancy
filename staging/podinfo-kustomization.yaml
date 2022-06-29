@@ -19,7 +19,11 @@ spec:
   healthChecks:
   - apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
-    name: podinfo-from-apps-to-infra
+    name: podinfo-to-infra
+    namespace: infra
+  - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+    kind: HelmRelease
+    name: podinfo-from-apps-to-infra # FORBIDDEN (cross-namespace reference)
     namespace: infra
   - apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
