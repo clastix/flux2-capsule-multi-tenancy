@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - ../../base/podinfo-source
   - ../../base/podinfo
-  - ../../base/podinfo-exfiltrations
+  - ../../base/podinfo-disclosure

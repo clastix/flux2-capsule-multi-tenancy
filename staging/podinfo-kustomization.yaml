@@ -23,13 +23,13 @@ spec:
     namespace: infra
   - apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
-    name: podinfo-from-apps-to-infra # FORBIDDEN (cross-namespace reference)
+    name: podinfo-from-apps-to-infra # FORBIDDEN (flux: cross-namespace reference)
     namespace: infra
   - apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
     name: podinfo-to-apps
-    namespace: apps # FORBIDDEN (list)
+    namespace: apps # FORBIDDEN (RBAC: list)
   - apiVersion: helm.toolkit.fluxcd.io/v2beta1
     kind: HelmRelease
     name: podinfo-to-default
-    namespace: default # FORBIDDEN (list)
+    namespace: default # FORBIDDEN (RBAC: list)

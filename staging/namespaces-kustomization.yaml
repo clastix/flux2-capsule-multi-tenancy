@@ -6,7 +6,7 @@ metadata:
 spec:
   #dependsOn:
   #- name: namespaces
-  #  namespace: dev-team # FORBIDDEN
+  #  namespace: dev-team # FORBIDDEN (list)
   kubeConfig:
     secretRef:
       name: gitops-reconciler-kubeconfig
