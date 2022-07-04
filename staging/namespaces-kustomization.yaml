@@ -7,10 +7,10 @@ spec:
   #dependsOn:
   #- name: namespaces
   #  namespace: dev-team # FORBIDDEN (list)
-  kubeConfig:
-    secretRef:
-      name: gitops-reconciler-kubeconfig
-      key: kubeconfig
+  #kubeConfig:
+  #  secretRef:
+  #    name: gitops-reconciler-kubeconfig
+  #    key: kubeconfig
   interval: 1m
   sourceRef:
     kind: GitRepository
