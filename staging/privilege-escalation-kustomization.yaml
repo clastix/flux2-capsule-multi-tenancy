@@ -4,6 +4,10 @@ metadata:
   name: privilege-escalation
   namespace: ops-team
 spec:
+  kubeConfig:
+    secretRef:
+      name: gitops-reconciler-kubeconfig
+      key: kubeconfig
   interval: 1m
   sourceRef:
     kind: GitRepository
