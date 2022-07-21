@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: capsule-proxy
+  namespace: flux-system
+spec:
+  serviceAccountName: helm-controller
+  releaseName: capsule-proxy
+  chart:
+    spec:
+      chart: capsule-proxy
+      sourceRef:
+        kind: HelmRepository
+        name: clastix
+  values:
+    image:
+      repository: quay.io/clastix/capsule-proxy
+      tag: v0.3.0
+    options:
+      logLevel: "10"
+  interval: 1m

@@ -1,0 +1,15 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: capsule
+  namespace: flux-system
+spec:
+  serviceAccountName: helm-controller
+  releaseName: capsule
+  chart:
+    spec:
+      chart: capsule
+      sourceRef:
+        kind: HelmRepository
+        name: clastix
+  interval: 1m

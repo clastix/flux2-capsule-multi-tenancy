@@ -1,0 +1,12 @@
+---
+#
+# The service account gitops-reconciler (in dev-team Namespace)
+# has to be part of Capsule group, pass through Capsule access control.
+#
+apiVersion: capsule.clastix.io/v1alpha1
+kind: CapsuleConfiguration
+metadata:
+  name: default
+spec:
+  userGroups:
+  - system:serviceaccounts:dev-team

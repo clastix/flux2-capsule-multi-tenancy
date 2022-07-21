@@ -1,0 +1,16 @@
+#
+# Tenant GitOps Reconcilers identitiies need to
+# reconcile Namespaces also with patch besides
+# create, which is included by default by Capsule.
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: capsule-namespace-provisioner-gitops
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - patch

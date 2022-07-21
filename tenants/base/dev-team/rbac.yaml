@@ -1,0 +1,119 @@
+#
+# This set of resources neeeds to be created by a privileged
+# (non-tenant) GitOps reconciler.
+#
+---
+#
+# A Tenant GitOps Reconciler home Namespace.
+# This won't be part of the Tenant Namespaces in order to
+# avoid chicken & egg problem.
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: dev-team
+    capsule.clastix.io/tenant: dev-team
+  name: dev-team
+---
+#
+# A Tenant as a set of Namespaces, is owned by the
+# gitops-reconciler Tenant GitOps Reconciler,
+#
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gitops-reconciler
+  namespace: dev-team
+---
+#
+# which will be configured as Tenant Owner.
+#
+apiVersion: capsule.clastix.io/v1beta1
+kind: Tenant
+metadata:
+  name: dev-team
+spec:
+#
+# We need the Tenant Owner and Tenant GitOps Reconciler
+# to be able to operate also on Custom Resources
+# inside Tenant Namespaces
+#
+  additionalRoleBindings:
+  - clusterRoleName: cluster-admin
+    subjects:
+    - name: gitops-reconciler
+      kind: ServiceAccount
+      namespace: dev-team
+  owners:
+  - name: system:serviceaccount:dev-team:gitops-reconciler
+    kind: ServiceAccount
+---
+#
+# We need the Tenant Owner and Tenant GitOps reconciler
+# to be able to operate also on Custom Resources
+# inside the Tenant Owner home Namespace.
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: dev-team
+  name: gitops-reconciler
+  namespace: dev-team
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: gitops-reconciler
+  namespace: dev-team
+---
+#
+# The Tenant GitOps Reconciler needs to provision namespaces
+# with kubectl apply the GitOps way, so patch has to be allowed.
+# Being a ClusterRole, it's managed globally at Capsule installation,
+# not per-Tenant (here).
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: capsule-namespace-provisioner-gitops-dev-team
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: capsule-namespace-provisioner-gitops
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:serviceaccounts:dev-team
+---
+#
+# We need the Tenant GitOps Reconciler to impersonate himself
+# (Capsule Proxy kubeconfig + ServiceAccount impersonation)
+# to enable Flux multi-tenancy lockdown with default ServiceAccount
+# impersonation.
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: dev-team-gitops-reconciler-impersonator
+rules:
+- apiGroups: [""]
+  resources: ["users"]
+  verbs: ["impersonate"]
+  resourceNames: ["system:serviceaccount:dev-team:gitops-reconciler"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dev-team-gitops-reconciler-impersonate
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: dev-team-gitops-reconciler-impersonator
+subjects:
+- name: gitops-reconciler
+  kind: ServiceAccount
+  namespace: dev-team
