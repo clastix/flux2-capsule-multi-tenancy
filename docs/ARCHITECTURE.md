@@ -36,7 +36,7 @@ The origin of the source is checked for changes on a defined interval, if there 
 
 All sources are specified as Custom Resources in a Kubernetes cluster, examples of sources are `GitRepository`, `HelmRepository` and `Bucket` resources.
 
-They can be respectively consumed by `Kustomization`, `HelmRelease`, `Bucket` Reconciliation resources.
+They can be respectively consumed by Flux `Kustomization` and `HelmRelease` resources.
 
 #### Reconciliation
 
@@ -44,8 +44,8 @@ Reconciliation refers to ensuring that a given state matches a desired state dec
 
 There are various examples of reconciliations in Flux:
 
-- `HelmRelease` reconciliation: ensures the state of the Helm release matches what is defined in the resource, performs a release if this is not the case (including revision changes of a HelmChart resource).
 - `Bucket` reconciliation: downloads and archives the contents of the declared bucket on a given interval and stores this as an artifact, records the observed revision of the artifact and the artifact itself in the status of resource.
+- `HelmRelease` reconciliation: ensures the state of the Helm release matches what is defined in the resource, performs a release if this is not the case (including revision changes of a HelmChart resource).
 - `Kustomization` reconciliation: ensures the state of the application deployed on a cluster matches the resources defined in a Git repository or S3 bucket.
 
 Let's just stick a bit more on the `Kustomization` resource.
@@ -54,8 +54,8 @@ Let's just stick a bit more on the `Kustomization` resource.
 
 The `Kustomization` resource is a Reconciliation resource that represents a local set of Kubernetes resources that Flux is supposed to periodically reconcile in the cluster.
 
-It supports both `kustomizations` folders and folders that contain bare manifests.
-> The latter case is supported as the controller will anyway initialize a `Kustomization` from that folder, with the manifest as its resources.
+It supports both Kustomize overlays and folders that contain bare manifests.
+> The latter case is supported as the controller will generate a `kustomization.yaml` from that folder, with the manifest as its resources.
 
 A Kustomization can refer to other manifest that in turn can be Kustomizations, so that you can create a hierarchy of Kustomizations.
 
@@ -532,9 +532,9 @@ Furthermore, let's see if there are other vulnerabilities we are able to protect
 
 Then, what if a tenant tries to escalate by using one of the Flux controllers privileged `ServiceAccount`s? 
 
-As `spec.ServiceAccountName` for Reconciliation resource cannot cross-namespace reference Service Accounts, tenants are able to let Flux apply his own resources only with ServiceAccounts that reside in his own Namespaces. Which is, Namespace of the ServiceAccount and Namespace of the Reconciliation resource must match.
+As `spec.ServiceAccountName` for Reconciliation resource cannot cross-namespace reference Service Accounts, tenants are able to let Flux apply his own resources only with ServiceAccounts that reside in their own Namespaces. Which is, Namespace of the ServiceAccount and Namespace of the Reconciliation resource must match.
 
-He could neither create the Reconciliation resource where a privileged ServiceAccount is present (like flux-system), as the Namespace has to be owned by the Tenant. Capsule would block those Reconciliation resource creation requests.
+They could neither create the Reconciliation resource where a privileged ServiceAccount is present (like flux-system), as the Namespace has to be owned by the Tenant. Capsule would block those Reconciliation resource creation requests.
 
 ##### Create and impersonate privileged SA
 
@@ -546,8 +546,8 @@ Now let's go on with the practical part.
 
 ##### Change ownership of privileged Namespaces (e.g. flux-system)
 
-He could try to use privileged `ServiceAccount` by changing ownership of a privileged Namespace so that he could create Reconciliation resource there and using the privileged SA.
-This is not permitted as he can't patch Namespaces which have not been created by him. Capsule request validation would not pass.
+They could try to use the privileged `ServiceAccount` by changing ownership of a privileged Namespace so that they could create Reconciliation resource there and using the privileged SA.
+This is not permitted as they can't patch Namespaces which have not been created by them. Capsule request validation would not pass.
 
 For other protections against threats in this multi-tenancy scenario please see the Capsule [Multi-Tenancy Benchmark](/docs/general/mtb). 
 
